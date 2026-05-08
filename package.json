@@ -4,12 +4,15 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "postinstall": "find node_modules/bcdice -name '*.map' -type f -delete"
   },
   "dependencies": {
+    "bcdice": "^4.9.0",
     "hono": "^4.12.18"
   },
   "devDependencies": {
-    "wrangler": "^4.4.0"
+    "@types/node": "^25.6.2",
+    "wrangler": "^4.90.0"
   }
 }
