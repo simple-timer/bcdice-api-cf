@@ -35,3 +35,4 @@ lerna-debug.log*
 .idea
 src/**/*.js
 scripts/**/*.js
+test/**/*.js

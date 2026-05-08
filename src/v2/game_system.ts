@@ -43,6 +43,11 @@ app.get("/:id", zValidator("param", getGameSystemParamsSchema), async (c) => {
 });
 
 const executeRoll = async (c: Context, id: string, command: string) => {
+	if (!command) {
+		c.status(400);
+		return c.json({ ok: false, reason: "unsupported command" });
+	}
+
 	const loader = new DynamicLoader();
 	const System = await loader.dynamicLoad(id).catch(() => null);
 
@@ -77,7 +82,12 @@ const executeRoll = async (c: Context, id: string, command: string) => {
 app.get(
 	"/:id/roll",
 	zValidator("param", getGameSystemRollParamsSchema),
-	zValidator("query", getGameSystemRollQuerySchema),
+	zValidator("query", getGameSystemRollQuerySchema, (result, c) => {
+		if (!result.success) {
+			c.status(400);
+			return c.json({ ok: false, reason: "unsupported command" });
+		}
+	}),
 	async (c) => {
 		const { id } = c.req.valid("param");
 		const { command } = c.req.valid("query");
@@ -88,7 +98,12 @@ app.get(
 app.post(
 	"/:id/roll",
 	zValidator("param", postGameSystemRollParamsSchema),
-	zValidator("json", postGameSystemRollBodySchema),
+	zValidator("json", postGameSystemRollBodySchema, (result, c) => {
+		if (!result.success) {
+			c.status(400);
+			return c.json({ ok: false, reason: "unsupported command" });
+		}
+	}),
 	async (c) => {
 		const { id } = c.req.valid("param");
 		const { command } = c.req.valid("json");
