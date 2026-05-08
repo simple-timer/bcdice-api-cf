@@ -1,0 +1,4 @@
+[install]
+registry="https://npm.flatt.tech"
+security.scanner = "@socketsecurity/bun-security-scanner"
+minimumReleaseAge = 259200 # 3 days
