@@ -9,7 +9,7 @@ app.use("*", cors());
 app.route("/v2", v2);
 
 app.get("/", (c) => {
-	return c.text(`BCDice API is running`);
+	return c.text(`Hello. This is BCDice-API on Cloudflare.`);
 });
 
 app.notFound((c) => {
