@@ -6,7 +6,8 @@
 		"deploy": "wrangler deploy --minify",
 		"cf-typegen": "wrangler types --env-interface CloudflareBindings",
 		"postinstall": "bun scripts/remove-maps.ts",
-		"check": "bunx biome check"
+		"check": "bunx biome check",
+		"compat": "bun scripts/verify_updates.ts"
 	},
 	"dependencies": {
 		"@hono/zod-validator": "^0.7.6",
