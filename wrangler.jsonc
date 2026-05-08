@@ -3,8 +3,10 @@
 	"name": "bcdice-api-cf",
 	"main": "src/index.ts",
 	"compatibility_date": "2026-05-08",
-	"compatibility_flags": ["nodejs_compat"]
-	// "compatibility_flags": [
+	"compatibility_flags": ["nodejs_compat"],
+	"workers_dev": false,
+	"routes": []
+	// "compatibility_flags": [[]
 	//   "nodejs_compat"
 	// ],
 	// "vars": {
