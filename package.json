@@ -9,8 +9,10 @@
 		"check": "bunx biome check"
 	},
 	"dependencies": {
+		"@hono/zod-validator": "^0.7.6",
 		"bcdice": "^4.9.0",
-		"hono": "^4.12.18"
+		"hono": "^4.12.18",
+		"zod": "^4.4.3"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.14",

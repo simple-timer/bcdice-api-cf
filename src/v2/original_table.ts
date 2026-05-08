@@ -1,14 +1,12 @@
+import { zValidator } from "@hono/zod-validator";
 import UserDefinedDiceTable from "bcdice/lib/user_defined_dice_table.js";
 import { Hono } from "hono";
+import { postOriginalTableBodySchema } from "../types/postOriginalTableBody";
 
 const app = new Hono();
 
-app.post("/", async (c) => {
-	const body = (await c.req.parseBody().catch(() => ({}))) as Record<
-		string,
-		string
-	>;
-	const tableText = typeof body.table === "string" ? body.table : "";
+app.post("/", zValidator("json", postOriginalTableBodySchema), async (c) => {
+	const { table: tableText } = c.req.valid("json");
 
 	try {
 		const table = new UserDefinedDiceTable(tableText);

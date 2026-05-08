@@ -1,8 +1,14 @@
+import { zValidator } from "@hono/zod-validator";
 import GameSystemList from "bcdice/lib/bcdice/game_system_list.json" with {
 	type: "json",
 };
 import DynamicLoader from "bcdice/lib/loader/dynamic_loader.js";
 import { type Context, Hono } from "hono";
+import { getGameSystemParamsSchema } from "../types/getGameSystemParams";
+import { getGameSystemRollParamsSchema } from "../types/getGameSystemRollParams";
+import { getGameSystemRollQuerySchema } from "../types/getGameSystemRollQuery";
+import { postGameSystemRollBodySchema } from "../types/postGameSystemRollBody";
+import { postGameSystemRollParamsSchema } from "../types/postGameSystemRollParams";
 
 const app = new Hono();
 
@@ -16,8 +22,8 @@ app.get("/", (c) => {
 	return c.json({ game_system: systems });
 });
 
-app.get("/:id", async (c) => {
-	const id = c.req.param("id") || "";
+app.get("/:id", zValidator("param", getGameSystemParamsSchema), async (c) => {
+	const { id } = c.req.valid("param");
 	const loader = new DynamicLoader();
 	const System = await loader.dynamicLoad(id).catch(() => null);
 
@@ -36,20 +42,7 @@ app.get("/:id", async (c) => {
 	});
 });
 
-const rollHandler = async (c: Context) => {
-	const id = c.req.param("id") || "";
-	let command = "";
-
-	if (c.req.method === "GET") {
-		command = c.req.query("command") || "";
-	} else if (c.req.method === "POST") {
-		const body = (await c.req.parseBody().catch(() => ({}))) as Record<
-			string,
-			string
-		>;
-		command = typeof body.command === "string" ? body.command : "";
-	}
-
+const executeRoll = async (c: Context, id: string, command: string) => {
 	const loader = new DynamicLoader();
 	const System = await loader.dynamicLoad(id).catch(() => null);
 
@@ -81,7 +74,26 @@ const rollHandler = async (c: Context) => {
 	});
 };
 
-app.get("/:id/roll", rollHandler);
-app.post("/:id/roll", rollHandler);
+app.get(
+	"/:id/roll",
+	zValidator("param", getGameSystemRollParamsSchema),
+	zValidator("query", getGameSystemRollQuerySchema),
+	async (c) => {
+		const { id } = c.req.valid("param");
+		const { command } = c.req.valid("query");
+		return executeRoll(c, id, command);
+	},
+);
+
+app.post(
+	"/:id/roll",
+	zValidator("param", postGameSystemRollParamsSchema),
+	zValidator("json", postGameSystemRollBodySchema),
+	async (c) => {
+		const { id } = c.req.valid("param");
+		const { command } = c.req.valid("json");
+		return executeRoll(c, id, command);
+	},
+);
 
 export default app;
