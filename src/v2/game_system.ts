@@ -56,7 +56,25 @@ const executeRoll = async (c: Context, id: string, command: string) => {
 		return c.json({ ok: false, reason: "unsupported game system" });
 	}
 
-	const result = System.eval(command);
+	const gameSystem = new System(command);
+
+	if (process.env.NODE_ENV === "development") {
+		const testRandsHeader = c.req.header("X-Test-Rands");
+		if (testRandsHeader) {
+			try {
+				const testRands: [number, number][] = JSON.parse(testRandsHeader);
+				let randIndex = 0;
+				gameSystem.randomizer.$random = (_sides: number) => {
+					const r = testRands[randIndex++];
+					return r ? r[0] : 0;
+				};
+			} catch (_e) {
+				// Ignore
+			}
+		}
+	}
+
+	const result = gameSystem.eval();
 
 	if (!result) {
 		c.status(400);
