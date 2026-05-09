@@ -110,7 +110,6 @@ const executeRoll = async (c: Context, id: string, command: string) => {
 	const result = gameSystem.eval();
 
 	if (!result) {
-		c.status(400);
 		return c.json({ ok: false, reason: "unsupported command" });
 	}
 
