@@ -124,5 +124,3 @@ export function loadAllI18n() {
 	I18n.$load_translation(JSON.stringify(i18n_57));
 	I18n.$load_translation(JSON.stringify(i18n_58));
 }
-
-loadAllI18n();

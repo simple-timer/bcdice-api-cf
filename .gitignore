@@ -36,3 +36,4 @@ lerna-debug.log*
 src/**/*.js
 scripts/**/*.js
 test/**/*.js
+scratch

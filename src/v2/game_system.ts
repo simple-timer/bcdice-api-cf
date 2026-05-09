@@ -1,9 +1,14 @@
 import "bcdice/lib/bcdice/base";
-import "../generated/i18n_loader";
+const { loadAllI18n } = require("../generated/i18n_loader");
+loadAllI18n();
+
+console.log("[BCDice] Initializing game systems...");
 
 import { zValidator } from "@hono/zod-validator";
 import { DynamicLoader } from "bcdice";
-import "bcdice/lib/bcdice/game_system/index.js";
+
+require("bcdice/lib/bcdice/game_system/index.js");
+
 import GameSystemList from "bcdice/lib/bcdice/game_system_list.json" with {
 	type: "json",
 };

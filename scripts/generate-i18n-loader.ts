@@ -27,14 +27,11 @@ try {
 	content +=
 		"\n/**\n * Cloudflare Workers 向けに全翻訳データを静的にロードする。\n * このファイルは自動生成されています。\n */\n";
 	content += "export function loadAllI18n() {\n";
-
-	// Load calls
 	files.forEach((_file, index) => {
 		const varName = `i18n_${index}`;
 		content += `\tI18n.$load_translation(JSON.stringify(${varName}));\n`;
 	});
-
-	content += "}\n\nloadAllI18n();\n";
+	content += "}\n";
 
 	writeFileSync(outputPath, content);
 	console.log(
