@@ -3,7 +3,7 @@ process.env.NODE_ENV = "development";
 import { describe, expect, it } from "bun:test";
 import fs from "node:fs";
 import path from "node:path";
-import app from "../../src/index";
+import app from "../src";
 
 const dataDir = path.join(process.cwd(), "bcdice", "test", "data");
 

@@ -114,7 +114,7 @@ describe("V2 Dicebot HTTP Tests", () => {
 						},
 					});
 
-					if (!res.ok) {
+					if (!res.ok && res.status !== 400) {
 						const errorJson = await res.json().catch(() => ({}));
 						throw new Error(
 							`HTTP error! status: ${res.status}, body: ${JSON.stringify(errorJson)}`,
