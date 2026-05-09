@@ -1,14 +1,39 @@
+import "bcdice/lib/bcdice/base";
+import "../generated/i18n_loader";
+
 import { zValidator } from "@hono/zod-validator";
+import { DynamicLoader } from "bcdice";
+import "bcdice/lib/bcdice/game_system/index.js";
 import GameSystemList from "bcdice/lib/bcdice/game_system_list.json" with {
 	type: "json",
 };
-import DynamicLoader from "bcdice/lib/loader/dynamic_loader.js";
+import type GameSystemClass from "bcdice/lib/game_system";
+import { BCDice } from "bcdice/lib/internal";
+import type { BaseClass } from "bcdice/lib/internal/types/base";
+import { getGameSystemClass } from "bcdice/lib/loader/loader";
 import { type Context, Hono } from "hono";
 import { getGameSystemParamsSchema } from "../types/getGameSystemParams";
 import { getGameSystemRollParamsSchema } from "../types/getGameSystemRollParams";
 import { getGameSystemRollQuerySchema } from "../types/getGameSystemRollQuery";
 import { postGameSystemRollBodySchema } from "../types/postGameSystemRollBody";
 import { postGameSystemRollParamsSchema } from "../types/postGameSystemRollParams";
+
+class CloudflareFullLoader extends DynamicLoader {
+	override async dynamicImport(_className: string): Promise<void> {
+		// すべて静的にインポート済みのため、何もしない
+		return;
+	}
+
+	override async dynamicLoad(id: string): Promise<GameSystemClass> {
+		const info = this.getGameSystemInfo(id);
+		const className = info.className || id;
+		const gameSystemClass = BCDice.GameSystem.$const_get<BaseClass>(className);
+		if (!gameSystemClass) {
+			throw new Error("Failed to load game system");
+		}
+		return getGameSystemClass(gameSystemClass);
+	}
+}
 
 const app = new Hono();
 
@@ -24,7 +49,7 @@ app.get("/", (c) => {
 
 app.get("/:id", zValidator("param", getGameSystemParamsSchema), async (c) => {
 	const { id } = c.req.valid("param");
-	const loader = new DynamicLoader();
+	const loader = new CloudflareFullLoader();
 	const System = await loader.dynamicLoad(id).catch(() => null);
 
 	if (!System) {
@@ -48,8 +73,11 @@ const executeRoll = async (c: Context, id: string, command: string) => {
 		return c.json({ ok: false, reason: "unsupported command" });
 	}
 
-	const loader = new DynamicLoader();
-	const System = await loader.dynamicLoad(id).catch(() => null);
+	const loader = new CloudflareFullLoader();
+	const System = await loader.dynamicLoad(id).catch((_e) => {
+		// 全システムをバンドルしているため、基本的にはここには到達しません
+		return null;
+	});
 
 	if (!System) {
 		c.status(400);
@@ -89,11 +117,13 @@ const executeRoll = async (c: Context, id: string, command: string) => {
 		failure: result.failure,
 		critical: result.critical,
 		fumble: result.fumble,
-		rands: result.detailedRands.map((r) => ({
-			kind: r.kind,
-			sides: r.sides,
-			value: r.value,
-		})),
+		rands: result.detailedRands.map(
+			(r: { kind: string; sides: number; value: number }) => ({
+				kind: r.kind,
+				sides: r.sides,
+				value: r.value,
+			}),
+		),
 	});
 };
 

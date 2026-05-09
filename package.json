@@ -2,10 +2,10 @@
 	"name": "bcdice-api-cf",
 	"type": "module",
 	"scripts": {
-		"dev": "bun run check && wrangler dev",
+		"dev": "wrangler dev",
 		"deploy": "wrangler deploy --minify",
 		"cf-typegen": "wrangler types --env-interface CloudflareBindings",
-		"postinstall": "bun scripts/remove-maps.ts",
+		"postinstall": "bun scripts/remove-maps.ts && bun scripts/patch-bcdice.ts && bun scripts/generate-i18n-loader.ts",
 		"check": "bunx biome check",
 		"compat": "bun scripts/verify_updates.ts"
 	},

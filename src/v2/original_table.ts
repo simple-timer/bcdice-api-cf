@@ -1,5 +1,5 @@
 import { zValidator } from "@hono/zod-validator";
-import UserDefinedDiceTable from "bcdice/lib/user_defined_dice_table.js";
+import { UserDefinedDiceTable } from "bcdice";
 import { Hono } from "hono";
 import { postOriginalTableBodySchema } from "../types/postOriginalTableBody";
 
