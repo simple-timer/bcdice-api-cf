@@ -36,7 +36,7 @@ try {
 	const replacementI18n = `return self.$load_translation(JSON.stringify(${i18nContent.trim()}));`;
 
 	if (baseJsContent.includes(targetI18n)) {
-		baseJsContent = baseJsContent.replace(targetI18n, replacementI18n);
+		baseJsContent = baseJsContent.replace(targetI18n, () => replacementI18n);
 	}
 
 	// 2. Patch Table.$from_i18n
@@ -49,7 +49,7 @@ try {
           return self.$new(table['$[]']("name"), table['$[]']("type"), table['$[]']("items"));`;
 	baseJsContent = baseJsContent.replace(
 		tableFromI18nTarget,
-		tableFromI18nReplacement,
+		() => tableFromI18nReplacement,
 	);
 
 	// 3. Patch D66Table.$from_i18n
@@ -64,7 +64,7 @@ try {
           return self.$new(table['$[]']("name"), sort_type, table['$[]']("items"));`;
 	baseJsContent = baseJsContent.replace(
 		d66TableFromI18nTarget,
-		d66TableFromI18nReplacement,
+		() => d66TableFromI18nReplacement,
 	);
 
 	// 4. Patch recursive merge in $load_translation
@@ -75,7 +75,7 @@ try {
             return newval;
           }
         }));`;
-	baseJsContent = baseJsContent.replace(mergeTarget, mergeReplacement);
+	baseJsContent = baseJsContent.replace(mergeTarget, () => mergeReplacement);
 
 	// 5. Patch I18n.$translate to return an empty hash instead of nil
 	const translateAnchor = "if ($truthy(($ret_or_1 = result))) {";
@@ -148,11 +148,11 @@ try {
         };`;
 
 		if (baseJsContent.includes(oldHPart)) {
-			baseJsContent = baseJsContent.replace(oldHPart, finalReplacement);
+			baseJsContent = baseJsContent.replace(oldHPart, () => finalReplacement);
 		} else if (baseJsContent.includes(safeObjPart)) {
-			baseJsContent = baseJsContent.replace(safeObjPart, finalReplacement);
+			baseJsContent = baseJsContent.replace(safeObjPart, () => finalReplacement);
 		} else if (baseJsContent.includes(oldPart)) {
-			baseJsContent = baseJsContent.replace(oldPart, finalReplacement);
+			baseJsContent = baseJsContent.replace(oldPart, () => finalReplacement);
 		}
 	}
 
@@ -180,7 +180,7 @@ try {
 	const replacement =
 		"var target = items['$[]'](3); if (target && target.$push) { return target.$push(skill_table); } else { return items; } }));";
 	if (content.includes(target)) {
-		content = content.replace(target, replacement);
+		content = content.replace(target, () => replacement);
 		writeFileSync(beginningIdolPath, content);
 		console.log("Successfully patched BeginningIdol.js");
 	}
