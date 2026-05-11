@@ -1,6 +1,10 @@
+/**
+ * bcdiceのパッケージにパッチを当てる
+ */
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
+// bcdiceのパッケージのパス
 const baseJsPath = join(
 	process.cwd(),
 	"node_modules",
@@ -9,6 +13,8 @@ const baseJsPath = join(
 	"bcdice",
 	"base.js",
 );
+
+// bcdiceのi18nデータのパス
 const i18nJsonPath = join(
 	process.cwd(),
 	"node_modules",
@@ -20,6 +26,7 @@ const i18nJsonPath = join(
 );
 
 try {
+	// 各種データを読み込むs
 	const i18nContent = readFileSync(i18nJsonPath, "utf-8");
 	let baseJsContent = readFileSync(baseJsPath, "utf-8");
 

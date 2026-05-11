@@ -3,7 +3,9 @@ import { env } from "hono/adapter";
 
 const app = new Hono();
 
+// /v2/admin
 app.get("/", (c) => {
+	// 環境変数から取得
 	const { ADMIN_NAME, ADMIN_URL, ADMIN_EMAIL } = env<{
 		ADMIN_NAME: string;
 		ADMIN_URL: string;

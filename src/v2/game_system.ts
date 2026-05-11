@@ -42,6 +42,7 @@ class CloudflareFullLoader extends DynamicLoader {
 
 const app = new Hono();
 
+// /v2/game_system
 app.get("/", (c) => {
 	const systems = GameSystemList.gameSystems.map((sys) => ({
 		id: sys.id,
@@ -52,6 +53,8 @@ app.get("/", (c) => {
 	return c.json({ game_system: systems });
 });
 
+
+// /v2/game_system/:id
 app.get("/:id", zValidator("param", getGameSystemParamsSchema), async (c) => {
 	const { id } = c.req.valid("param");
 	const loader = new CloudflareFullLoader();
@@ -132,6 +135,7 @@ const executeRoll = async (c: Context, id: string, command: string) => {
 	});
 };
 
+// /v2/game_system/:id/roll
 app.get(
 	"/:id/roll",
 	zValidator("param", getGameSystemRollParamsSchema),
@@ -148,6 +152,7 @@ app.get(
 	},
 );
 
+// /v2/game_system/:id/roll
 app.post(
 	"/:id/roll",
 	zValidator("param", postGameSystemRollParamsSchema),

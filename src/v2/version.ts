@@ -3,6 +3,7 @@ import { Hono } from "hono";
 
 const app = new Hono();
 
+// /v2/version
 app.get("/", (c) => {
 	return c.json({
 		api: "cf-3.0.0",

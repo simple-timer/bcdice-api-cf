@@ -6,12 +6,15 @@ const app = new Hono();
 
 app.use("*", cors());
 
+// /v2
 app.route("/v2", v2);
 
+// /
 app.get("/", (c) => {
 	return c.text(`Hello. This is BCDice-API on Cloudflare.`);
 });
 
+// 404
 app.notFound((c) => {
 	return c.json({ ok: false, reason: "not found" }, 404);
 });

@@ -1,3 +1,7 @@
+/**
+ * 検証用スクリプト
+ */
+
 const servers = [
 	"http://127.0.0.1:8787",
 	"https://bcdice.onlinesession.app",

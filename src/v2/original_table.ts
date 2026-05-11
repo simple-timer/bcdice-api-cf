@@ -5,6 +5,7 @@ import { postOriginalTableBodySchema } from "../types/postOriginalTableBody";
 
 const app = new Hono();
 
+// /v2/original_table
 app.post("/", zValidator("json", postOriginalTableBodySchema), async (c) => {
 	const { table: tableText } = c.req.valid("json");
 
