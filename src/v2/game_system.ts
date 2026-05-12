@@ -53,7 +53,6 @@ app.get("/", (c) => {
 	return c.json({ game_system: systems });
 });
 
-
 // /v2/game_system/:id
 app.get("/:id", zValidator("param", getGameSystemParamsSchema), async (c) => {
 	const { id } = c.req.valid("param");

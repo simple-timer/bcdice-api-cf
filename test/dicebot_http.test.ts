@@ -39,7 +39,7 @@ type JsonResponse = {
 };
 
 describe("V2 Dicebot HTTP Tests", () => {
-	let serverProcess: any;
+	let serverProcess: Bun.Subprocess;
 
 	beforeAll(async () => {
 		console.log("Starting server for HTTP tests...");

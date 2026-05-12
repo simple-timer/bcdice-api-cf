@@ -150,7 +150,10 @@ try {
 		if (baseJsContent.includes(oldHPart)) {
 			baseJsContent = baseJsContent.replace(oldHPart, () => finalReplacement);
 		} else if (baseJsContent.includes(safeObjPart)) {
-			baseJsContent = baseJsContent.replace(safeObjPart, () => finalReplacement);
+			baseJsContent = baseJsContent.replace(
+				safeObjPart,
+				() => finalReplacement,
+			);
 		} else if (baseJsContent.includes(oldPart)) {
 			baseJsContent = baseJsContent.replace(oldPart, () => finalReplacement);
 		}
