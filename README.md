@@ -1,6 +1,6 @@
 # BCDice API on Cloudflare Workers
 
-BCDice APIをCloudflare Workers / Hono で動作するように移植したプロジェクトです。
+BCDice APIをCloudflare Workers / Hono で動作するように、[bcdice-js](https://github.com/bcdice/bcdice-js) を利用して移植したプロジェクトです。
 
 ## 特徴
 - **Cloudflare Workers への対応**: Cloudflare Workersのエッジ実行環境に対応。
@@ -10,7 +10,7 @@ BCDice APIをCloudflare Workers / Hono で動作するように移植したプ�
 - **Runtime**: [Bun](https://bun.sh/)
 - **Platform**: [Cloudflare Workers](https://workers.cloudflare.com/)
 - **Framework**: [Hono](https://hono.dev/)
-- **Core Logic**: [BCDice](https://github.com/bcdice/BCDice)
+- **Core Logic**: [BCDice](https://github.com/bcdice/BCDice) (via [bcdice-js](https://github.com/bcdice/bcdice-js))
 
 ## クイックスタート
 
