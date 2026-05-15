@@ -7,17 +7,17 @@
 	"workers_dev": false,
 	"routes": [
 		{
- 			pattern: "bcdice.simpletimer.dev",
-			zone_name: "simpletimer.dev",
-			custom_domain: true,
-			enabled: true,
-			previews_enabled: false
+ 			"pattern": "bcdice.simpletimer.dev",
+			"zone_name": "simpletimer.dev",
+			"custom_domain": true,
+			"enabled": true,
+			"previews_enabled": false
 		}
 	],
-	vars: {
-		ADMIN_EMAIL: "mutsukimaki@gmail.com",
-		ADMIN_NAME: "じゃんまき",
-		ADMIN_URL: "https://janmaki.net"
+	"vars": {
+		"ADMIN_EMAIL": "mutsukimaki@gmail.com",
+		"ADMIN_NAME": "じゃんまき",
+		"ADMIN_URL": "https://janmaki.net"
 	}
 
 
