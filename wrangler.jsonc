@@ -5,7 +5,22 @@
 	"compatibility_date": "2026-05-08",
 	"compatibility_flags": ["nodejs_compat"],
 	"workers_dev": false,
-	"routes": []
+	"routes": [
+		{
+ 			pattern: "bcdice.simpletimer.dev",
+			zone_name: "simpletimer.dev",
+			custom_domain: true,
+			enabled: true,
+			previews_enabled: false
+		}
+	],
+	vars: {
+		ADMIN_EMAIL: "mutsukimaki@gmail.com",
+		ADMIN_NAME: "じゃんまき",
+		ADMIN_URL: "https://janmaki.net"
+	}
+
+
 	// "compatibility_flags": [[]
 	//   "nodejs_compat"
 	// ],
