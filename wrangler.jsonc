@@ -1,9 +1,15 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "bcdice-api-cf",
-	"main": "src/index.ts",
+	"main": "dist/index.js",
 	"compatibility_date": "2026-05-08",
 	"compatibility_flags": ["nodejs_compat"],
+	"build": {
+		"command": "bun run build",
+		"watch_dir": ["src", "scripts"]
+	},
+	"no_bundle": true,
+	"find_additional_modules": false,
 	"workers_dev": false,
 	"routes": []
 	// "compatibility_flags": [[]
