@@ -4,7 +4,7 @@ loadAllI18n();
 
 console.log("[BCDice] Initializing game systems...");
 
-import { zValidator } from "@hono/zod-validator";
+import { vValidator } from "@hono/valibot-validator";
 import { DynamicLoader } from "bcdice";
 
 require("bcdice/lib/bcdice/game_system/index.js");
@@ -54,7 +54,7 @@ app.get("/", (c) => {
 });
 
 // /v2/game_system/:id
-app.get("/:id", zValidator("param", getGameSystemParamsSchema), async (c) => {
+app.get("/:id", vValidator("param", getGameSystemParamsSchema), async (c) => {
 	const { id } = c.req.valid("param");
 	const loader = new CloudflareFullLoader();
 	const System = await loader.dynamicLoad(id).catch(() => null);
@@ -137,8 +137,8 @@ const executeRoll = async (c: Context, id: string, command: string) => {
 // /v2/game_system/:id/roll
 app.get(
 	"/:id/roll",
-	zValidator("param", getGameSystemRollParamsSchema),
-	zValidator("query", getGameSystemRollQuerySchema, (result, c) => {
+	vValidator("param", getGameSystemRollParamsSchema),
+	vValidator("query", getGameSystemRollQuerySchema, (result, c) => {
 		if (!result.success) {
 			c.status(400);
 			return c.json({ ok: false, reason: "unsupported command" });
@@ -154,8 +154,8 @@ app.get(
 // /v2/game_system/:id/roll
 app.post(
 	"/:id/roll",
-	zValidator("param", postGameSystemRollParamsSchema),
-	zValidator("json", postGameSystemRollBodySchema, (result, c) => {
+	vValidator("param", postGameSystemRollParamsSchema),
+	vValidator("json", postGameSystemRollBodySchema, (result, c) => {
 		if (!result.success) {
 			c.status(400);
 			return c.json({ ok: false, reason: "unsupported command" });

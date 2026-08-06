@@ -1,4 +1,4 @@
-import { zValidator } from "@hono/zod-validator";
+import { vValidator } from "@hono/valibot-validator";
 import { UserDefinedDiceTable } from "bcdice";
 import { Hono } from "hono";
 import { postOriginalTableBodySchema } from "../types/postOriginalTableBody";
@@ -6,7 +6,7 @@ import { postOriginalTableBodySchema } from "../types/postOriginalTableBody";
 const app = new Hono();
 
 // /v2/original_table
-app.post("/", zValidator("json", postOriginalTableBodySchema), async (c) => {
+app.post("/", vValidator("json", postOriginalTableBodySchema), async (c) => {
 	const { table: tableText } = c.req.valid("json");
 
 	try {

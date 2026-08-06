@@ -6,7 +6,7 @@ const app = new Hono();
 // /v2/version
 app.get("/", (c) => {
 	return c.json({
-		api: 'cf-3.1.0',
+		api: "cf-3.1.1",
 		bcdice: BCDiceVersion,
 	});
 });
