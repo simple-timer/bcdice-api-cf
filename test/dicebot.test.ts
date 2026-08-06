@@ -44,18 +44,8 @@ describe("V2 Dicebot Tests", () => {
 		const filePath = path.join(dataDir, filename);
 		const content = fs.readFileSync(filePath, "utf8");
 
-		let data: TomlData;
-		try {
-			// biome-ignore lint/suspicious/noExplicitAny: Bun.TOML is any
-			data = (Bun as any).TOML.parse(content) as TomlData;
-		} catch (e) {
-			describe.skip(`fail_parse: ${filename}`, () => {
-				it("should parse", () => {
-					throw e;
-				});
-			});
-			continue;
-		}
+		// biome-ignore lint/suspicious/noExplicitAny: Bun.TOML is any
+		const data = (Bun as any).TOML.parse(content) as TomlData;
 		if (!data.test) continue;
 
 		for (let i = 0; i < data.test.length; i++) {
