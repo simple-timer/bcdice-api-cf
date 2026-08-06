@@ -1,9 +1,9 @@
-import { z } from "zod/mini";
+import { type InferOutput, object, string } from "valibot";
 
-export const getGameSystemRollQuerySchema = z.object({
-	command: z.string(),
+export const getGameSystemRollQuerySchema = object({
+	command: string(),
 });
 
-export type GetGameSystemRollQuery = z.infer<
+export type GetGameSystemRollQuery = InferOutput<
 	typeof getGameSystemRollQuerySchema
 >;

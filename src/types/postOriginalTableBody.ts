@@ -1,7 +1,9 @@
-import { z } from "zod/mini";
+import { type InferOutput, object, string } from "valibot";
 
-export const postOriginalTableBodySchema = z.object({
-	table: z.string(),
+export const postOriginalTableBodySchema = object({
+	table: string(),
 });
 
-export type PostOriginalTableBody = z.infer<typeof postOriginalTableBodySchema>;
+export type PostOriginalTableBody = InferOutput<
+	typeof postOriginalTableBodySchema
+>;

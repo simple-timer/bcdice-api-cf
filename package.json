@@ -11,10 +11,10 @@
 		"compat": "bun scripts/verify_updates.ts"
 	},
 	"dependencies": {
-		"@hono/zod-validator": "^0.7.6",
+		"@hono/valibot-validator": "^0.6.1",
 		"bcdice": "^4.10.0",
 		"hono": "^4.13.0",
-		"zod": "^4.4.3"
+		"valibot": "^1.4.2"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.14",
