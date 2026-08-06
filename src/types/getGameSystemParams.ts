@@ -1,7 +1,7 @@
-import { z } from "zod";
+import { type InferOutput, object, string } from "valibot";
 
-export const getGameSystemParamsSchema = z.object({
-	id: z.string(),
+export const getGameSystemParamsSchema = object({
+	id: string(),
 });
 
-export type GetGameSystemParams = z.infer<typeof getGameSystemParamsSchema>;
+export type GetGameSystemParams = InferOutput<typeof getGameSystemParamsSchema>;

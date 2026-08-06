@@ -1,9 +1,9 @@
-import { z } from "zod";
+import { type InferOutput, object, string } from "valibot";
 
-export const postGameSystemRollParamsSchema = z.object({
-	id: z.string(),
+export const postGameSystemRollParamsSchema = object({
+	id: string(),
 });
 
-export type PostGameSystemRollParams = z.infer<
+export type PostGameSystemRollParams = InferOutput<
 	typeof postGameSystemRollParamsSchema
 >;
