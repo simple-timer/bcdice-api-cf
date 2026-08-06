@@ -84,8 +84,7 @@ describe("V2 Dicebot HTTP Tests", () => {
 
 		let data: TomlData;
 		try {
-			// biome-ignore lint/suspicious/noExplicitAny: Bun.TOML is any
-			data = (Bun as any).TOML.parse(content) as TomlData;
+			data = Bun.TOML.parse(content) as TomlData;
 		} catch (e) {
 			describe.skip(`fail_parse: ${filename}`, () => {
 				it("should parse", () => {

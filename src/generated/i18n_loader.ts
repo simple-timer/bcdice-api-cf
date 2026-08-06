@@ -1,4 +1,3 @@
-import { I18n } from "bcdice/lib/internal";
 import i18n_0 from "bcdice/lib/bcdice/i18n/Airgetlamh.ja_jp.json";
 import i18n_1 from "bcdice/lib/bcdice/i18n/Airgetlamh.ko_kr.json";
 import i18n_2 from "bcdice/lib/bcdice/i18n/Alsetto.ja_jp.json";
@@ -99,6 +98,7 @@ import i18n_96 from "bcdice/lib/bcdice/i18n/YearZeroEngine.ja_jp.json";
 import i18n_97 from "bcdice/lib/bcdice/i18n/YearZeroEngine.ko_kr.json";
 import i18n_98 from "bcdice/lib/bcdice/i18n/ZombiLine.ja_jp.json";
 import i18n_99 from "bcdice/lib/bcdice/i18n/ZombiLine.ko_kr.json";
+import { I18n } from "bcdice/lib/internal";
 
 /**
  * Cloudflare Workers 向けに全翻訳データを静的にロードする。
